@@ -57,6 +57,7 @@ public class ServletContato extends HttpServlet {
 			contato.setNome("Contato " + i);
 			contato.setEmail("contato" + i + "@gmail.com");
 			contato.setTelefone("1234567" + i);
+			contatos.add(contato);
 		}
 		
 		request.setAttribute("listaContatos", contatos);
