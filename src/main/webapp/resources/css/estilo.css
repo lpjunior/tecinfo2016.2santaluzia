@@ -1,0 +1,20 @@
+.navbar .navbar-nav .navbar-center {
+	display: inline-block;
+	float: none;
+	vertical-align: top;
+}
+
+.navbar .navbar-collapse .navbar-center {
+	text-align: center;
+}
+
+@media ( min-width : 768px) {
+	.navbar .navbar-nav .navbar-center {
+		display: inline-block;
+		float: none;
+		vertical-align: top;
+	}
+	.navbar .navbar-collapse .navbar-center {
+		text-align: center;
+	}
+}

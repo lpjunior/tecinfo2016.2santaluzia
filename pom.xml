@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- GAV -->
+	<groupId>br.senac.rj</groupId>
+	<artifactId>projeto05</artifactId>
+	<version>1.0</version>
+
+	<!-- Padrao de empacotamento do projeto -->
+	<packaging>war</packaging>
+
+	<name>Projeto Aula 05</name>
+	<description>Java Web Application Senac Santa Luzia</description>
+	<url>http://rj.senac.br</url>
+
+	<properties>
+		<!-- Versao do java que o projeto ira trabalhar -->
+		<java.version>1.8</java.version>
+		<!-- Definir o encoding UTF-8 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.output.Encoding>UTF-8</project.reporting.output.Encoding>
+	</properties>
+
+	<!-- Dependencias do projeto (bibliotecas) -->
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>WebContent\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
