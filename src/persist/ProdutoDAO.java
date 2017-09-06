@@ -19,8 +19,7 @@ public class ProdutoDAO extends ConnectionDAO {
 			conn = getConnection();
 			if (p.getId() == null) {
 				stmt = conn.prepareStatement(
-						"insert into produto (nmProduto, descProduto, preco, quantidade) VALUES (?, ?, ?, ?)",
-						Statement.RETURN_GENERATED_KEYS);
+						"insert into produto (nmProduto, descProduto, preco, quantidade) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			} else {
 				stmt = conn.prepareStatement(
 						"update produto set nmProduto = ?, descProduto = ?, preco = ?, quantidade = ? where id = ?");
