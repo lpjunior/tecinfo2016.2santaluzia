@@ -59,6 +59,11 @@ public class ServletProduto extends HttpServlet {
 		ProdutoDAO bd = new ProdutoDAO();
 		String msg = "";
 		try {
+			System.out.println(produto.getNmProduto());
+			System.out.println(produto.getDescProduto());
+			System.out.println(produto.getPreco());
+			System.out.println(produto.getQuantidade());
+			
 			bd.save(produto);
 			msg = "Produto cadastrado com sucesso.";
 		} catch (SQLException e) {
