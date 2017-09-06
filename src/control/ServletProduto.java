@@ -1,11 +1,16 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entity.Produto;
+import persist.ProdutoDAO;
 
 @WebServlet({ "/prd/listar", "/prd/cadastrar", "/prd/excluir", "/prd/editar", "/prd/buscar" })
 public class ServletProduto extends HttpServlet {
@@ -37,14 +42,31 @@ public class ServletProduto extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (request.getServletPath().equals(PREFIX_URL + "cadastrar")) {
-			cadastrar(response);
+			Produto produto = new Produto();
+			
+			produto.setNmProduto(request.getParameter("nmproduto"));
+			produto.setDescProduto(request.getParameter("descproduto"));
+			produto.setPreco(new Double(request.getParameter("preco")));
+			produto.setQuantidade(new Integer(request.getParameter("quantidade")));
+			
+			cadastrar(produto, response);
 		} else if (request.getServletPath().equals(PREFIX_URL + "editar")) {
 			editar(response);
 		}
 	}
 
-	private void cadastrar(HttpServletResponse response) throws IOException {
-		response.getWriter().append("Request via cadastrar");
+	private void cadastrar(Produto produto, HttpServletResponse response) throws IOException {
+		ProdutoDAO bd = new ProdutoDAO();
+		String msg = "";
+		try {
+			bd.save(produto);
+			msg = "Produto cadastrado com sucesso.";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			msg = "Falha ao gravar o produto";
+		}
+		
+		response.getWriter().append(msg);
 	}
 
 	private void listar(HttpServletResponse response) throws IOException {
