@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet({ "/prd/listar", "/prd/cadastrar", "/prd/excluir", "/prd/editar", "/prd/buscar" })
 public class ServletProduto extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
 	private static final String PREFIX_URL = "/prd/";
