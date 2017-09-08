@@ -9,24 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entity.Produto;
-import persist.ProdutoDAO;
+import entity.Funcionario;
+import persist.FuncionarioDAO;
 
-@WebServlet({ "/prd/listar", "/prd/cadastrar", "/prd/excluir", "/prd/editar", "/prd/buscar" })
-public class ServletProduto extends HttpServlet {
-
+/**
+ * Servlet implementation class ServletFuncionario
+ */
+@WebServlet({ "/func/listar", "/func/cadastrar", "/func/excluir", "/func/editar", "/func/buscar" })
+public class ServletFuncionario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String PREFIX_URL = "/prd/";
+	private static final String PREFIX_URL = "/func/";
 
-	public ServletProduto() {
+	public ServletFuncionario() {
 		super();
 	}
-	
-	// trata requisições via Método HTTP GET - Pode-se via URL
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		if (request.getServletPath().equals(PREFIX_URL + "listar")) {
 			listar(response);
 		} else if (request.getServletPath().equals(PREFIX_URL + "buscar")) {
@@ -34,38 +34,36 @@ public class ServletProduto extends HttpServlet {
 		} else if (request.getServletPath().equals(PREFIX_URL + "excluir")) {
 			excluir(response);
 		}
-
 	}
-	
-	// trata requisições via Método HTTP POST - Pode-se via Formulário
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		if (request.getServletPath().equals(PREFIX_URL + "cadastrar")) {
-			Produto produto = new Produto();
+			Funcionario funcionario = new Funcionario();
+
+			funcionario.setNmFunc(request.getParameter("nmfunc"));
+			funcionario.setEmail(request.getParameter("email"));
+			funcionario.setLogin(request.getParameter("login"));
+			funcionario.setSenha(request.getParameter("senha"));
+
+			cadastrar(funcionario, response);
 			
-			produto.setNmProduto(request.getParameter("nmproduto"));
-			produto.setDescProduto(request.getParameter("descproduto"));
-			produto.setPreco(new Double(request.getParameter("preco")));
-			produto.setQuantidade(new Integer(request.getParameter("quantidade")));
-			
-			cadastrar(produto, response);
 		} else if (request.getServletPath().equals(PREFIX_URL + "editar")) {
 			editar(response);
 		}
 	}
 
-	private void cadastrar(Produto produto, HttpServletResponse response) throws IOException {
-		ProdutoDAO bd = new ProdutoDAO();
+	private void cadastrar(Funcionario funcionario, HttpServletResponse response) throws IOException {
+		FuncionarioDAO bd = new FuncionarioDAO();
 		String msg = "";
 		try {
-			bd.save(produto);
+			bd.save(funcionario);
 			msg = "Produto cadastrado com sucesso.";
 		} catch (SQLException e) {
 			e.printStackTrace();
 			msg = "Falha ao gravar o produto";
 		}
-		
+
 		response.getWriter().append(msg);
 	}
 
