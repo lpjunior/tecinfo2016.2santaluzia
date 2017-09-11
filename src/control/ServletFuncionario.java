@@ -45,7 +45,7 @@ public class ServletFuncionario extends HttpServlet {
 			funcionario.setEmail(request.getParameter("email"));
 			funcionario.setLogin(request.getParameter("login"));
 			funcionario.setSenha(request.getParameter("senha"));
-
+			
 			cadastrar(funcionario, response);
 			
 		} else if (request.getServletPath().equals(PREFIX_URL + "editar")) {
@@ -61,7 +61,7 @@ public class ServletFuncionario extends HttpServlet {
 			msg = "Produto cadastrado com sucesso.";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			msg = "Falha ao gravar o produto";
+			msg = "Falha ao gravar o funcionario";
 		}
 
 		response.getWriter().append(msg);

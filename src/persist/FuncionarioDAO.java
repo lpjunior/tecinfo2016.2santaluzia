@@ -26,10 +26,10 @@ public class FuncionarioDAO extends ConnectionDAO {
 		try {
 			if (f.getId() == null) {
 				stmt = conn.prepareStatement(
-						"insert into produto (nmFunc, email, login, senha) VALUES (?, ?, ?, md5(?))", Statement.RETURN_GENERATED_KEYS);
+						"insert into funcionario (nmFunc, email, login, senha) VALUES (?, ?, ?, md5(?))", Statement.RETURN_GENERATED_KEYS);
 			} else {
 				stmt = conn.prepareStatement(
-						"update produto set nmFunc = ?, email = ?, login = ?, senha = md5(?) where id = ?");
+						"update funcionario set nmFunc = ?, email = ?, login = ?, senha = md5(?) where id = ?");
 			}
 			stmt.setString(1, f.getNmFunc());
 			stmt.setString(2, f.getEmail());
