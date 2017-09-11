@@ -58,7 +58,7 @@ public class ServletFuncionario extends HttpServlet {
 		String msg = "";
 		try {
 			bd.save(funcionario);
-			msg = "Produto cadastrado com sucesso.";
+			msg = "Funcionario cadastrado com sucesso.";
 		} catch (SQLException e) {
 			e.printStackTrace();
 			msg = "Falha ao gravar o funcionario";

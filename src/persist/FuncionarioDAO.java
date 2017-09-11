@@ -22,6 +22,11 @@ public class FuncionarioDAO extends ConnectionDAO {
 	
 	public void save(Funcionario f) throws SQLException {
 		
+		System.out.println("Nome " + f.getNmFunc());
+		System.out.println("Email " + f.getEmail());
+		System.out.println("Login " + f.getLogin());
+		System.out.println("Senha " + f.getSenha());
+		
 		PreparedStatement stmt = null;
 		try {
 			if (f.getId() == null) {
