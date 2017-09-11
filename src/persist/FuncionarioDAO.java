@@ -9,9 +9,9 @@ import java.sql.Statement;
 import entity.Funcionario;
 
 public class FuncionarioDAO extends ConnectionDAO {
-	
+
 	private Connection conn = null;
-	
+
 	public FuncionarioDAO() {
 		try {
 			conn = getConnection();
@@ -19,19 +19,15 @@ public class FuncionarioDAO extends ConnectionDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void save(Funcionario f) throws SQLException {
-		
-		System.out.println("Nome " + f.getNmFunc());
-		System.out.println("Email " + f.getEmail());
-		System.out.println("Login " + f.getLogin());
-		System.out.println("Senha " + f.getSenha());
-		
+
 		PreparedStatement stmt = null;
 		try {
 			if (f.getId() == null) {
 				stmt = conn.prepareStatement(
-						"insert into funcionario (nmFunc, email, login, senha) VALUES (?, ?, ?, md5(?))", Statement.RETURN_GENERATED_KEYS);
+						"insert into funcionario (nmFunc, email, login, senha) VALUES (?, ?, ?, md5(?))",
+						Statement.RETURN_GENERATED_KEYS);
 			} else {
 				stmt = conn.prepareStatement(
 						"update funcionario set nmFunc = ?, email = ?, login = ?, senha = md5(?) where id = ?");
@@ -66,16 +62,57 @@ public class FuncionarioDAO extends ConnectionDAO {
 		}
 	}
 	
-		// id gerado com o campo auto incremento
-		public static Long getGeneratedId(Statement stmt) throws SQLException {
-			
-			ResultSet rs = stmt.getGeneratedKeys();
-			
-			if (rs.next()) {
-				Long id = rs.getLong(1);
-				return id;
+	public Funcionario getFuncionarioById(Long id) throws SQLException {
+
+		PreparedStatement stmt = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement("select * from funcionario where id = ?");
+
+			stmt.setLong(1, id);
+
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) { // rs.next verifica se a busca restornou algum resultado
+				Funcionario f = createFuncionario(rs);
+				rs.close();
+				return f;
 			}
-			
-			return 0L;
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
 		}
+		return null;
+	}
+	
+	// id gerado com o campo auto incremento
+	public static Long getGeneratedId(Statement stmt) throws SQLException {
+
+		ResultSet rs = stmt.getGeneratedKeys();
+
+		if (rs.next()) {
+			Long id = rs.getLong(1);
+			return id;
+		}
+
+		return 0L;
+	}
+
+	public Funcionario createFuncionario(ResultSet rs) throws SQLException {
+
+		Funcionario f = null;
+
+		f = new Funcionario();
+		f.setId(rs.getLong(1));
+		f.setNmFunc(rs.getString(2));
+		f.setEmail(rs.getString(3));
+		f.setLogin(rs.getString(4));
+		f.setSenha(rs.getString(5));
+
+		return f;
+	}
 }

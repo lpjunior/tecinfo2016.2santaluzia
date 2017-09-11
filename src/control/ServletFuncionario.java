@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Funcionario;
 import persist.FuncionarioDAO;
 
-/**
- * Servlet implementation class ServletFuncionario
- */
 @WebServlet({ "/func/listar", "/func/cadastrar", "/func/excluir", "/func/editar", "/func/buscar" })
 public class ServletFuncionario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,6 +38,9 @@ public class ServletFuncionario extends HttpServlet {
 		if (request.getServletPath().equals(PREFIX_URL + "cadastrar")) {
 			Funcionario funcionario = new Funcionario();
 
+			if(request.getParameter("id") != null)
+				funcionario.setId(Long.parseLong(request.getParameter("id")));
+			
 			funcionario.setNmFunc(request.getParameter("nmfunc"));
 			funcionario.setEmail(request.getParameter("email"));
 			funcionario.setLogin(request.getParameter("login"));
