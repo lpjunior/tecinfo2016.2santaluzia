@@ -21,4 +21,4 @@ create table funcionario (
 	senha varchar(50) not null
 );
 
-select * from funcionario
+select * from funcionario;

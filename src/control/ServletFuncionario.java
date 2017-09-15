@@ -53,12 +53,12 @@ public class ServletFuncionario extends HttpServlet {
 			funcionario.setLogin(request.getParameter("login"));
 			funcionario.setSenha(request.getParameter("senha"));
 
-			salvar(funcionario, response);
+			salvar(funcionario, request, response);
 
 		}
 	}
 
-	private void salvar(Funcionario funcionario, HttpServletResponse response) throws IOException {
+	private void salvar(Funcionario funcionario, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
 		String msg = "";
 		try {
@@ -69,16 +69,9 @@ public class ServletFuncionario extends HttpServlet {
 			e.printStackTrace();
 			msg = "Falha ao gravar o funcionario";
 		}
-
-		response.getWriter().append(msg);
 		
-		Thread.currentThread();
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		response.sendRedirect("../index.jsp");
+		request.setAttribute("msg", msg);
+		buscar(request, response);
 	}
 
 	private void buscar(Long id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
