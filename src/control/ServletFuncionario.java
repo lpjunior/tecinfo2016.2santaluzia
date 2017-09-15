@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Funcionario;
 import persist.FuncionarioDAO;
 
-@WebServlet({ "/func/listar", "/func/salvar", "/func/excluir", "/func/buscar" })
+@WebServlet({ "/func/salvar", "/func/excluir", "/func/buscar" })
 public class ServletFuncionario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,15 +24,15 @@ public class ServletFuncionario extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getServletPath().equals(PREFIX_URL + "listar")) {
-			listar(response);
-		} else if (request.getServletPath().equals(PREFIX_URL + "buscar")) {
+		if (request.getServletPath().equals(PREFIX_URL + "buscar")) {
 			if (request.getParameter("id") != null) {
 				Long id = Long.parseLong(request.getParameter("id"));
 				buscar(id, response);
 			} else if (request.getParameter("nome") != null) {
 				String nome = request.getParameter("nome");
 				buscar(nome, response);
+			} else {
+				buscar(response);
 			}
 		} else if (request.getServletPath().equals(PREFIX_URL + "excluir")) {
 			Long id = Long.parseLong(request.getParameter("id"));
@@ -72,18 +72,6 @@ public class ServletFuncionario extends HttpServlet {
 		response.getWriter().append(msg);
 	}
 
-	private void listar(HttpServletResponse response) throws IOException {
-		FuncionarioDAO bd = new FuncionarioDAO();
-
-		try {
-			for (Funcionario f : bd.getFuncionarios()) {
-				response.getWriter().append(f.toString() + "\n");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void buscar(Long id, HttpServletResponse response) throws IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
 		Funcionario f = null;
@@ -101,7 +89,19 @@ public class ServletFuncionario extends HttpServlet {
 
 		try {
 			for (Funcionario f : bd.findByName(nome)) {
-				response.getWriter().append(f.toString() + "\n");
+				response.getWriter().append(f.toString() + "<br>");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void buscar(HttpServletResponse response) throws IOException {
+		FuncionarioDAO bd = new FuncionarioDAO();
+
+		try {
+			for (Funcionario f : bd.getFuncionarios()) {
+				response.getWriter().append(f.toString() + "<br>");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
