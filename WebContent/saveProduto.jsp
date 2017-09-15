@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,9 +24,32 @@
 </head>
 <body>
 	<div class="container">
-		<div class="jumbotron" style="margin-top: 5%">
-			<p class="text-center">PÃ¡gina Inicial</p>
-		</div>
+		<fieldset>
+			<legend>Cadastro de Produto</legend>
+			<form action="prd/cadastrar" method="post">
+				<div class="form-group">
+					<label for="id_nome">Nome do Produto</label> <input type="text"
+						class="form-control" name="nmproduto" id="id_nome"
+						placeholder="Informe o nome">
+				</div>
+				<div class="form-group">
+					<label for="id_preco">Preço do Produto</label> <input type="number"
+						class="form-control" name="preco" id="id_preco"
+						placeholder="Informe o preço">
+				</div>
+				<div class="form-group">
+					<label for="id_qtd">Quantidade do Produto</label> <input
+						type="number" class="form-control" name="quantidade" id="id_qtd"
+						placeholder="Informe a quantidade">
+				</div>
+				<div class="form-group">
+					<label for="id_descproduto">Descrição do Produto</label>
+					<textarea class="form-control" rows="3" name="descproduto" id="id_descproduto"
+						placeholder="Informe a descrição"></textarea>
+				</div>
+				<button type="submit" class="btn btn-default btn-block">Enviar</button>
+			</form>
+		</fieldset>
 	</div>
 
 	<!-- jQuery -->
