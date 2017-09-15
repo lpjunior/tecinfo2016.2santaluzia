@@ -45,7 +45,7 @@ public class ServletFuncionario extends HttpServlet {
 		if (request.getServletPath().equals(PREFIX_URL + "salvar")) {
 			Funcionario funcionario = new Funcionario();
 			
-			if (request.getParameter("id") != "")
+			if (!request.getParameter("id").equals(""))
 				funcionario.setId(Long.parseLong(request.getParameter("id")));
 
 			funcionario.setNmFunc(request.getParameter("nmfunc"));
@@ -53,6 +53,7 @@ public class ServletFuncionario extends HttpServlet {
 			funcionario.setLogin(request.getParameter("login"));
 			funcionario.setSenha(request.getParameter("senha"));
 
+			System.out.println(funcionario);
 			salvar(funcionario, response);
 
 		}

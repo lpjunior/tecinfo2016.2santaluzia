@@ -30,7 +30,7 @@
 			<form action="func/salvar" method="post">
 				<div class="form-group">
 					<label for="id_nome">Nome do Funcionario</label> <input type="text"
-						class="form-control" name="nmproduto" id="id_nome"
+						class="form-control" name="nmfunc" id="id_nome"
 						placeholder="Informe o nome" value="${f.nmFunc}">
 				</div>
 				<div class="form-group">
