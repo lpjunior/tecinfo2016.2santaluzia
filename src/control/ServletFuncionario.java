@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Funcionario;
 import persist.FuncionarioDAO;
 
-@WebServlet({ "/func/listar", "/func/cadastrar", "/func/excluir", "/func/editar", "/func/buscar" })
+@WebServlet({ "/func/listar", "/func/salvar", "/func/excluir", "/func/buscar" })
 public class ServletFuncionario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,33 +27,38 @@ public class ServletFuncionario extends HttpServlet {
 		if (request.getServletPath().equals(PREFIX_URL + "listar")) {
 			listar(response);
 		} else if (request.getServletPath().equals(PREFIX_URL + "buscar")) {
-			buscar(response);
+			if (request.getParameter("id") != null) {
+				Long id = Long.parseLong(request.getParameter("id"));
+				buscar(id, response);
+			} else if (request.getParameter("nome") != null) {
+				String nome = request.getParameter("nome");
+				buscar(nome, response);
+			}
 		} else if (request.getServletPath().equals(PREFIX_URL + "excluir")) {
-			excluir(response);
+			Long id = Long.parseLong(request.getParameter("id"));
+			excluir(id, response);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getServletPath().equals(PREFIX_URL + "cadastrar")) {
+		if (request.getServletPath().equals(PREFIX_URL + "salvar")) {
 			Funcionario funcionario = new Funcionario();
 
-			if(request.getParameter("id") != null)
+			if (request.getParameter("id") != null)
 				funcionario.setId(Long.parseLong(request.getParameter("id")));
-			
+
 			funcionario.setNmFunc(request.getParameter("nmfunc"));
 			funcionario.setEmail(request.getParameter("email"));
 			funcionario.setLogin(request.getParameter("login"));
 			funcionario.setSenha(request.getParameter("senha"));
-			
-			cadastrar(funcionario, response);
-			
-		} else if (request.getServletPath().equals(PREFIX_URL + "editar")) {
-			editar(response);
+
+			salvar(funcionario, response);
+
 		}
 	}
 
-	private void cadastrar(Funcionario funcionario, HttpServletResponse response) throws IOException {
+	private void salvar(Funcionario funcionario, HttpServletResponse response) throws IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
 		String msg = "";
 		try {
@@ -68,18 +73,61 @@ public class ServletFuncionario extends HttpServlet {
 	}
 
 	private void listar(HttpServletResponse response) throws IOException {
-		response.getWriter().append("Request via listar");
+		FuncionarioDAO bd = new FuncionarioDAO();
+
+		try {
+			bd.getFuncionarios().forEach(funcionario -> {
+				try {
+					response.getWriter().append(funcionario.toString() + "\n");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	private void buscar(HttpServletResponse response) throws IOException {
-		response.getWriter().append("Request via buscar");
+	private void buscar(Long id, HttpServletResponse response) throws IOException {
+		FuncionarioDAO bd = new FuncionarioDAO();
+		Funcionario f = null;
+
+		try {
+			f = bd.getFuncionarioById(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		response.getWriter().append(f.toString());
 	}
 
-	private void editar(HttpServletResponse response) throws IOException {
-		response.getWriter().append("Request via editar");
+	private void buscar(String nome, HttpServletResponse response) throws IOException {
+		FuncionarioDAO bd = new FuncionarioDAO();
+
+		try {
+			bd.findByName(nome).forEach(funcionario -> {
+				try {
+					response.getWriter().append(funcionario.toString() + "\n");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	private void excluir(HttpServletResponse response) throws IOException {
-		response.getWriter().append("Request via excluir");
+	private void excluir(Long id, HttpServletResponse response) throws IOException {
+		FuncionarioDAO bd = new FuncionarioDAO();
+
+		try {
+			bd.delete(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		response.getWriter().append("Excluido com sucesso!");
 	}
 }

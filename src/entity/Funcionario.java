@@ -16,6 +16,12 @@ public class Funcionario implements Serializable {
 
 	}
 
+	@Override
+	public String toString() {
+		return "Funcionario [id=" + id + ", nmFunc=" + nmFunc + ", email=" + email + ", login=" + login + ", senha="
+				+ senha + "]";
+	}
+
 	public Long getId() {
 		return id;
 	}
