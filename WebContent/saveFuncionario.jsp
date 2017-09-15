@@ -27,7 +27,7 @@
 	<div class="container">
 		<fieldset>
 			<legend>Gerenciamento de Funcionários</legend>
-			<form action="prd/salvar" method="post">
+			<form action="func/salvar" method="post">
 				<div class="form-group">
 					<label for="id_nome">Nome do Funcionario</label> <input type="text"
 						class="form-control" name="nmproduto" id="id_nome"

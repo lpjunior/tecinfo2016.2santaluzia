@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set scope="request" var="lista" value="${funcionarios}" />
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,21 +25,30 @@
 </head>
 <body>
 	<div class="container">
-		<div class="jumbotron" style="margin-top: 5%">
-			<fieldset>
-				<legend>Buscar por ID</legend>
-				<form id="form1" action="func/buscar">
-					<div class="form-group col-md-6">
-						<label for="id_">ID do Funcionario</label>
-						<input type="number" class="form-control" name="id" id="id_"
-							placeholder="Informe o nome">
-					</div>
-					<div class="col-md-12">
-					<button form="form1" class="btn btn-default">Buscar</button>
-					</div>
-				</form>
-			</fieldset>
+		<main>
+		<div class="jumbotron col-md-6 text-center col-md-offset-3">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>NOME</th>
+						<th>EMAIL</th>
+						<th>LOGIN</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="f" items="${lista}">
+						<tr>
+							<td>${f.id}</td>
+							<td>${f.nmFunc}</td>
+							<td>${f.email}</td>
+							<td>${f.login}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
+		</main>
 	</div>
 
 	<!-- jQuery -->

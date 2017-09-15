@@ -30,9 +30,9 @@ public class ServletFuncionario extends HttpServlet {
 				buscar(id, request, response);
 			} else if (request.getParameter("nome") != null) {
 				String nome = request.getParameter("nome");
-				buscar(nome, response);
+				buscar(nome, request, response);
 			} else {
-				buscar(response);
+				buscar(request, response);
 			}
 		} else if (request.getServletPath().equals(PREFIX_URL + "excluir")) {
 			Long id = Long.parseLong(request.getParameter("id"));
@@ -44,8 +44,8 @@ public class ServletFuncionario extends HttpServlet {
 			throws ServletException, IOException {
 		if (request.getServletPath().equals(PREFIX_URL + "salvar")) {
 			Funcionario funcionario = new Funcionario();
-
-			if (request.getParameter("id") != null)
+			
+			if (request.getParameter("id") != "")
 				funcionario.setId(Long.parseLong(request.getParameter("id")));
 
 			funcionario.setNmFunc(request.getParameter("nmfunc"));
@@ -84,28 +84,28 @@ public class ServletFuncionario extends HttpServlet {
 		request.getRequestDispatcher("/saveFuncionario.jsp").forward(request, response);
 	}
 
-	private void buscar(String nome, HttpServletResponse response) throws IOException {
+	private void buscar(String nome, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
 
 		try {
-			for (Funcionario f : bd.findByName(nome)) {
-				response.getWriter().append(f.toString() + "<br>");
-			}
+			request.setAttribute("funcionarios", bd.findByName(nome));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		request.getRequestDispatcher("/listar.jsp").forward(request, response);
 	}
 
-	private void buscar(HttpServletResponse response) throws IOException {
+	private void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
 
 		try {
-			for (Funcionario f : bd.getFuncionarios()) {
-				response.getWriter().append(f.toString() + "<br>");
-			}
+			request.setAttribute("funcionarios", bd.getFuncionarios());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		request.getRequestDispatcher("/listar.jsp").forward(request, response);
 	}
 
 	private void excluir(Long id, HttpServletResponse response) throws IOException {

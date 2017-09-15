@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sistema de Gerenciamento de Produtos</title>
+<title>Sistema de Gerenciamento</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -25,7 +25,7 @@
 <body>
 	<div class="container">
 		<fieldset>
-			<legend>Cadastro de Produto</legend>
+			<legend>Gerenciamento de Produtos</legend>
 			<form action="prd/cadastrar" method="post">
 				<div class="form-group">
 					<label for="id_nome">Nome do Produto</label> <input type="text"
