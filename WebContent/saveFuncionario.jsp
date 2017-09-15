@@ -53,6 +53,8 @@
 				<button type="submit" value="${f.id}" name="id" id="id_btn" class="btn btn-default btn-block">Enviar</button>
 			</form>
 		</fieldset>
+		<a href="index.html" class="btn btn-warning">Voltar <span
+									class="glyphicon glyphicon-send" aria-hidden="true"></span></a>
 	</div>
 
 	<!-- jQuery -->

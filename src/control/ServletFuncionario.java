@@ -36,7 +36,7 @@ public class ServletFuncionario extends HttpServlet {
 			}
 		} else if (request.getServletPath().equals(PREFIX_URL + "excluir")) {
 			Long id = Long.parseLong(request.getParameter("id"));
-			excluir(id, response);
+			excluir(id, request, response);
 		}
 	}
 
@@ -53,7 +53,6 @@ public class ServletFuncionario extends HttpServlet {
 			funcionario.setLogin(request.getParameter("login"));
 			funcionario.setSenha(request.getParameter("senha"));
 
-			System.out.println(funcionario);
 			salvar(funcionario, response);
 
 		}
@@ -65,12 +64,21 @@ public class ServletFuncionario extends HttpServlet {
 		try {
 			bd.save(funcionario);
 			msg = "Funcionario cadastrado com sucesso.";
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			msg = "Falha ao gravar o funcionario";
 		}
 
 		response.getWriter().append(msg);
+		
+		Thread.currentThread();
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		response.sendRedirect("../index.jsp");
 	}
 
 	private void buscar(Long id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,7 +102,7 @@ public class ServletFuncionario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/listar.jsp").forward(request, response);
+		request.getRequestDispatcher("/listFuncionario.jsp").forward(request, response);
 	}
 
 	private void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -106,10 +114,10 @@ public class ServletFuncionario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/listar.jsp").forward(request, response);
+		request.getRequestDispatcher("/listFuncionario.jsp").forward(request, response);
 	}
 
-	private void excluir(Long id, HttpServletResponse response) throws IOException {
+	private void excluir(Long id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
 
 		try {
@@ -117,6 +125,7 @@ public class ServletFuncionario extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		response.getWriter().append("Excluido com sucesso!");
+		request.setAttribute("msg", "Excluido com sucesso!");
+		buscar(request, response);
 	}
 }

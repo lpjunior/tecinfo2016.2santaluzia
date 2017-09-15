@@ -23,17 +23,98 @@
 	<div class="container">
 		<div class="jumbotron" style="margin-top: 5%">
 			<fieldset>
-				<legend>Buscar por ID</legend>
-				<form id="form1" action="func/buscar">
-					<div class="form-group col-md-6">
-						<label for="id_">ID do Funcionario</label>
-						<input type="number" class="form-control" name="id" id="id_"
-							placeholder="Informe o nome">
+				<legend>Gerenciar Funcionário | Produto</legend>
+				<div class="col-md-4" style="height: 140px;">
+					<label for="id_" style="color: black;">Cadastrar Funcionário</label>
+					<div class="col-md-12">
+						<a href="saveFuncionario.jsp" class="btn btn-default"
+							style="margin-top: 10%">Acessar</a>
+					</div>
+				</div>
+				<div class="col-md-4"
+					style="height: 140px; border-left: solid; color: crimson; padding-left: 15%">
+					<label for="id_" style="color: black;">Cadastrar Produto</label>
+					<div class="col-md-12">
+						<a href="saveProduto.jsp" class="btn btn-default"
+							style="margin-top: 10%">Acessar</a>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="jumbotron" style="margin-top: 5%">
+			<fieldset>
+				<legend>Localizar Funcionário</legend>
+				<form id="form1" action="func/buscar" class="col-md-4"
+					style="height: 45px">
+					<div class="form-group">
+						<label for="id_">ID do Funcionário</label> <input type="number"
+							class="form-control" name="id" id="id_"
+							placeholder="Informe o id">
 					</div>
 					<div class="col-md-12">
-					<button form="form1" class="btn btn-default">Buscar</button>
+						<button form="form1" class="btn btn-default">Buscar</button>
 					</div>
 				</form>
+				<form id="form2" action="func/buscar" class="col-md-4"
+					style="height: 140px; border-left: solid; color: olive;">
+					<div class="form-group">
+						<label for="id_nome" style="color: black;">Nome do
+							Funcionário</label> <input type="text" class="form-control" name="nome"
+							id="id_nome" placeholder="Informe o nome">
+					</div>
+					<div class="col-md-12">
+						<button form="form2" class="btn btn-default">Buscar</button>
+					</div>
+				</form>
+				<div class="col-md-4"
+					style="height: 140px; border-left: solid; color: olive;">
+					<div class="form-group">
+						<label for="id_" style="color: black;">Listar Funcionários</label>
+					</div>
+					<div class="col-md-12">
+						<a href="func/buscar" class="btn btn-default"
+							style="margin-top: 5%">Listar</a>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="jumbotron" style="margin-top: 5%">
+			<fieldset>
+				<legend>Localizar Produto</legend>
+				<form id="form3" action="prd/buscar" class="col-md-4"
+					style="height: 45px">
+					<div class="form-group">
+						<label for="id_prd">ID do Produto</label> <input type="number"
+							class="form-control" name="id" id="id_prd"
+							placeholder="Informe o id">
+					</div>
+					<div class="col-md-12">
+						<button form="form3" class="btn btn-default">Buscar</button>
+					</div>
+				</form>
+				<form id="form4" action="prd/buscar" class="col-md-4"
+					style="height: 140px; border-left: solid; color: orangered;">
+					<div class="form-group">
+						<label for="id_nmproduto" style="color: black;">Nome do
+							Produto</label> <input type="text" class="form-control" name="nome"
+							id="id_nmproduto" placeholder="Informe o nome">
+					</div>
+					<div class="col-md-12">
+						<button form="form4" class="btn btn-default">Buscar</button>
+					</div>
+				</form>
+				<div class="col-md-4"
+					style="height: 140px; border-left: solid; color: orangered;">
+					<div class="form-group">
+						<label for="id_" style="color: black;">Listar Produtos</label>
+					</div>
+					<div class="col-md-12">
+						<a href="prd/buscar" class="btn btn-default"
+							style="margin-top: 5%">Listar</a>
+					</div>
+				</div>
 			</fieldset>
 		</div>
 	</div>

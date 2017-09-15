@@ -25,7 +25,6 @@
 </head>
 <body>
 	<div class="container">
-		<main>
 		<div class="jumbotron col-md-6 text-center col-md-offset-3">
 			<table class="table table-striped">
 				<thead>
@@ -34,25 +33,28 @@
 						<th>NOME</th>
 						<th>EMAIL</th>
 						<th>LOGIN</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="f" items="${lista}">
 						<tr>
-								<td>
-							<a href="buscar?id=${f.id}">
-								${f.id}
-							</a>
-								</td>
-								<td>${f.nmFunc}</td>
-								<td>${f.email}</td>
-								<td>${f.login}</td>
+							<td><a href="buscar?id=${f.id}">${f.id}</a></td>
+							<td>${f.nmFunc}</td>
+							<td>${f.email}</td>
+							<td>${f.login}</td>
+							<td><a href="excluir?id=${f.id}">Remover <span
+									class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			<c:if test="${msg ne null}">
+				<p style="color: green;">${msg}</p>
+			</c:if>
+			<a href="../index.html">Voltar <span
+									class="glyphicon glyphicon-send" aria-hidden="true"></span></a>
 		</div>
-		</main>
 	</div>
 
 	<!-- jQuery -->
