@@ -39,10 +39,14 @@
 				<tbody>
 					<c:forEach var="f" items="${lista}">
 						<tr>
-							<td>${f.id}</td>
-							<td>${f.nmFunc}</td>
-							<td>${f.email}</td>
-							<td>${f.login}</td>
+								<td>
+							<a href="buscar?id=${f.id}">
+								${f.id}
+							</a>
+								</td>
+								<td>${f.nmFunc}</td>
+								<td>${f.email}</td>
+								<td>${f.login}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
