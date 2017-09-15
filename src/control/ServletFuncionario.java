@@ -76,16 +76,10 @@ public class ServletFuncionario extends HttpServlet {
 		FuncionarioDAO bd = new FuncionarioDAO();
 
 		try {
-			bd.getFuncionarios().forEach(funcionario -> {
-				try {
-					response.getWriter().append(funcionario.toString() + "\n");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
+			for (Funcionario f : bd.getFuncionarios()) {
+				response.getWriter().append(f.toString() + "\n");
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -106,16 +100,10 @@ public class ServletFuncionario extends HttpServlet {
 		FuncionarioDAO bd = new FuncionarioDAO();
 
 		try {
-			bd.findByName(nome).forEach(funcionario -> {
-				try {
-					response.getWriter().append(funcionario.toString() + "\n");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
+			for (Funcionario f : bd.findByName(nome)) {
+				response.getWriter().append(f.toString() + "\n");
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
