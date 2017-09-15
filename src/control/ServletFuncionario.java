@@ -27,7 +27,7 @@ public class ServletFuncionario extends HttpServlet {
 		if (request.getServletPath().equals(PREFIX_URL + "buscar")) {
 			if (request.getParameter("id") != null) {
 				Long id = Long.parseLong(request.getParameter("id"));
-				buscar(id, response);
+				buscar(id, request, response);
 			} else if (request.getParameter("nome") != null) {
 				String nome = request.getParameter("nome");
 				buscar(nome, response);
@@ -72,16 +72,16 @@ public class ServletFuncionario extends HttpServlet {
 		response.getWriter().append(msg);
 	}
 
-	private void buscar(Long id, HttpServletResponse response) throws IOException {
+	private void buscar(Long id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
-		Funcionario f = null;
 
 		try {
-			f = bd.getFuncionarioById(id);
+			request.setAttribute("funcionario", bd.getFuncionarioById(id));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		response.getWriter().append(f.toString());
+		
+		request.getRequestDispatcher("/saveFuncionario.jsp").forward(request, response);
 	}
 
 	private void buscar(String nome, HttpServletResponse response) throws IOException {

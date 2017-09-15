@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set scope="request" var="f" value="${funcionario}" />
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -26,21 +27,21 @@
 	<div class="container">
 		<fieldset>
 			<legend>Gerenciamento de Funcionários</legend>
-			<form action="prd/cadastrar" method="post">
+			<form action="prd/salvar" method="post">
 				<div class="form-group">
 					<label for="id_nome">Nome do Funcionario</label> <input type="text"
 						class="form-control" name="nmproduto" id="id_nome"
-						placeholder="Informe o nome">
+						placeholder="Informe o nome" value="${f.nmFunc}">
 				</div>
 				<div class="form-group">
 					<label for="id_email">E-mail do Funcionario</label> <input
 						type="email" class="form-control" name="email" id="id_email"
-						placeholder="Informe o e-mail">
+						placeholder="Informe o e-mail" value="${f.email}">
 				</div>
 				<div class="form-group">
 					<label for="id_login">Login do Funcionario</label> <input
 						type="text" class="form-control" name="login" id="id_login"
-						placeholder="Informe o login">
+						placeholder="Informe o login" value="${f.login}">
 				</div>
 				<c:if test="${funcionario eq null}">
 					<div class="form-group">
@@ -49,7 +50,7 @@
 							placeholder="Informe a senha">
 					</div>
 				</c:if>
-				<button type="submit" class="btn btn-default btn-block">Enviar</button>
+				<button type="submit" value="${f.id}" name="id" id="id_btn" class="btn btn-default btn-block">Enviar</button>
 			</form>
 		</fieldset>
 	</div>
