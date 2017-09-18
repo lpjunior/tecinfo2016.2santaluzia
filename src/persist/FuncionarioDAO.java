@@ -32,16 +32,15 @@ public class FuncionarioDAO extends ConnectionDAO {
 						Statement.RETURN_GENERATED_KEYS);
 			} else {
 				stmt = conn.prepareStatement(
-						"update funcionario set nmFunc = ?, email = ?, login = ?, senha = md5(?) where id = ?");
+						"update funcionario set nmFunc = ?, email = ?, login = ? where id = ?");
 			}
 			stmt.setString(1, f.getNmFunc());
 			stmt.setString(2, f.getEmail());
 			stmt.setString(3, f.getLogin());
-			stmt.setString(4, f.getSenha());
 
 			if (f.getId() != null) {
 				// Update
-				stmt.setLong(5, f.getId());
+				stmt.setLong(4, f.getId());
 			}
 
 			int count = stmt.executeUpdate();

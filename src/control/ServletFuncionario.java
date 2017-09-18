@@ -63,7 +63,7 @@ public class ServletFuncionario extends HttpServlet {
 		String msg = "";
 		try {
 			bd.save(funcionario);
-			msg = "Funcionario cadastrado com sucesso.";
+			msg = "Funcionario salvo com sucesso.";
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

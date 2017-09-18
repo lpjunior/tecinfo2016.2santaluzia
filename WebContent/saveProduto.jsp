@@ -26,7 +26,7 @@
 	<div class="container">
 		<fieldset>
 			<legend>Gerenciamento de Produtos</legend>
-			<form action="prd/cadastrar" method="post">
+			<form action="salvar" method="post">
 				<div class="form-group">
 					<label for="id_nome">Nome do Produto</label> <input type="text"
 						class="form-control" name="nmproduto" id="id_nome"
@@ -50,7 +50,7 @@
 				<button type="submit" class="btn btn-default btn-block">Enviar</button>
 			</form>
 		</fieldset>
-		<a href="index.html" class="btn btn-warning">Voltar <span
+		<a href="../index.html" class="btn btn-warning">Voltar <span
 									class="glyphicon glyphicon-send" aria-hidden="true"></span></a>
 	</div>
 
