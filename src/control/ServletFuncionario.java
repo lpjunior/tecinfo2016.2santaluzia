@@ -64,10 +64,9 @@ public class ServletFuncionario extends HttpServlet {
 		try {
 			bd.save(funcionario);
 			msg = "Funcionario salvo com sucesso.";
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			msg = "Falha ao gravar o funcionario";
+			msg = "Falha ao salvar o funcionario";
 		}
 		
 		request.setAttribute("msg", msg);
@@ -112,13 +111,15 @@ public class ServletFuncionario extends HttpServlet {
 
 	private void excluir(Long id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FuncionarioDAO bd = new FuncionarioDAO();
-
+		String msg = "";
 		try {
 			bd.delete(id);
+			msg = "Excluido com sucesso!";
 		} catch (SQLException e) {
 			e.printStackTrace();
+			msg = "Falha ao excluir!";
 		}
-		request.setAttribute("msg", "Excluido com sucesso!");
+		request.setAttribute("msg", msg);
 		buscar(request, response);
 	}
 }
